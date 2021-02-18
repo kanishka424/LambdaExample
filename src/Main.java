@@ -1,3 +1,5 @@
+import org.w3c.dom.ls.LSOutput;
+
 import java.util.*;
 
 public class Main {
@@ -45,7 +47,42 @@ public class Main {
         }
 
 
+//==========HOW TO CALL doStuff() WITHOUT LAMBDA,USING ANONYMOUS CLASSES===========
+//       String sillyString= doStuff(new upperConcat() {
+//            @Override
+//            public String upperAndConcat(String s1, String s2) {
+//                return s1+s2;
+//            }
+//        },employees.get(0).getName(),employees.get(1).getName());
+//
+//
+//        System.out.println(sillyString);
 
+
+
+ //=========================================doStuff() WITH LAMBDA=================================================================
+//        String sillyString= doStuff((String s1,String s2)-> s1+s2,employees.get(0).getName(),employees.get(1).getName());//MY WORK CORRECT BUT REPLACES WITH TIM'//no return needed
+
+
+
+        //=========================================doStuff() WITH LAMBDA TIM=================================================================
+
+        UpperConcat uc=(s1,s2)-> s1+s2;//no "return " keyword need since single statment and we can assign lambdas to variables and can reuse
+//        UpperConcat uc=(s1,s2)-> //with multiple lines
+//        {String result=s1+s2;     //use curly brace and "return" if you have more than one statement in your lambda
+//        return result;};
+        String sillyString= doStuff(uc,employees.get(0).getName(),employees.get(1).getName());
+
+
+        System.out.println(sillyString);
+   }
+
+
+
+
+
+    public static String  doStuff(UpperConcat uc, String s1, String s2){
+        return uc.upperAndConcat(s1,s2);
     }
 
 
@@ -78,6 +115,10 @@ class Employee{
     }
 }
 
+
+interface UpperConcat{
+    public String upperAndConcat(String s1,String s2);
+}
 
 
 
